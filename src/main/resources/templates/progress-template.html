@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Mail Template</title>
+    <style>
+        .step {
+            margin-bottom: 10px;
+        }
+
+        .active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<p>
+    <span th:text="${title}"></span>
+</p>
+
+<p>
+    Dưới đây là trạng thái của quá trình của bạn:
+</p>
+
+<div th:if="${status == 'COMPLETED'}" class="step">
+    <p>
+        <span>Bước 1:</span> New
+    </p>
+    <p>
+        <span>Bước 2:</span> Inprogress
+    </p>
+    <p>
+        <span class="active">Bước 3: Completed</span>
+    </p>
+</div>
+
+<div th:if="${status == 'IN-PROGRESS'}" class="step">
+    <p>
+        <span>Bước 1:</span> New
+    </p>
+    <p>
+        <span class="active">Bước 2: Inprogress</span>
+    </p>
+    <p>
+        <span>Bước 3:</span> Completed
+    </p>
+</div>
+
+<div th:if="${status == 'NEW'}" class="step">
+    <p>
+        <span class="active">Bước 1: New</span>
+    </p>
+    <p>
+        <span>Bước 2:</span> Inprogress
+    </p>
+    <p>
+        <span>Bước 3:</span> Completed
+    </p>
+</div>
+
+<p>
+    Nhựt Trần Tool Team /NTTT
+</p>
+
+</body>
+</html>
