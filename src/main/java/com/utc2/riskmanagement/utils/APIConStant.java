@@ -21,6 +21,7 @@ public class APIConStant {
         public static final String ENDPOINT = "/api/v1/risks/";
         public static final String GET_SINGLE_OR_DELETE_OR_UPDATE_ENDPOINT = ENDPOINT + "{id}/";
         public static final String TRACKING_ENDPOINT = ENDPOINT + "tracking/";
+        public static final String GET_RISKS_OF_CLASS_ENDPOINT = "/api/v1/masterdatas/{classID}/risks/";
         public static String getDeleteSuccessStatus(String id) {
             return "Successfully delete risk with id: " + id;
         }

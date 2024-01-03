@@ -22,10 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,21 +67,25 @@ public class RiskServiceImpl implements RiskService {
     }
 
     @Override
-    public RiskDTO create(RiskDTO riskDTO) {
+    public RiskDTO create(RiskDTO riskDTO) throws Exception {
         Risk risk = this.modelMapperUtil.getModelMapper().map(riskDTO, Risk.class);
+        Optional<Risk> existedRisk = this.riskRepository.findByReportedClassAndDevice(this.modelMapperUtil.getModelMapper().map(riskDTO.getReportedClass(), MasterData.class), this.modelMapperUtil.getModelMapper().map(riskDTO.getDevice(), MasterData.class));
+        if (existedRisk.isPresent()) {
+            throw new Exception("Risk is existed !!!");
+        }
         String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         risk.setCreatedDate(new Date());
         risk.setProgress(this.masterDataRepository.findByValue("NEW"));
         risk.setReporter(userRepository.findById(currentUserEmail).orElseThrow(() -> new ResourceNotFoundException(ExceptionConstant.User.RESOURCE, ExceptionConstant.User.ID_FIELD, currentUserEmail)));
         risk.setImage(fileService.uploadImage(riskDTO.getFile()));
         Risk savedRisk = this.riskRepository.save(risk);
+        this.emailService.sendProgressRiskEmail(savedRisk.getReporter().getEmail(), "Cập nhật trạng thái của vấn đề: " + savedRisk.getName(), savedRisk.getProgress().getValue());
 
         // send mail
         MasterData masterData = this.masterDataRepository.findById(risk.getTypeRisk().getId()).get();
         masterData.getUsersOfType().forEach(u -> {
             try {
                 this.emailService.sendActivationEmail(u.getEmail(), AssignRiskConstant.ASSIGN_RISK_URL + savedRisk.getId(), EmailConstant.ASSIGN_RISK_SUBJECT, AssignRiskConstant.ASSIGN_RISK_DESCRIPTION, u.getName());
-                this.emailService.sendProgressRiskEmail(savedRisk.getReporter().getEmail(), "Cập nhật trạng thái của vấn đề: " + savedRisk.getName(), savedRisk.getProgress().getValue());
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
@@ -153,11 +154,22 @@ public class RiskServiceImpl implements RiskService {
     }
 
     @Override
-    public TrackingDTO trackTask() {
-        List<RiskDTO> risk = this.getAllRisks();
+    public TrackingDTO trackTask(String classID) {
+        List<RiskDTO> risk = new ArrayList<>();
+        if (StringUtils.isBlank(classID)) {
+            risk = this.getAllRisks();
+        }
+        else {
+            risk = this.riskRepository.findByReportedClassId(classID).stream().map(r -> this.modelMapperUtil.getModelMapper().map(r, RiskDTO.class)).collect(Collectors.toList());
+        }
         return TrackingDTO.builder().newTask(risk.stream().filter(r -> r.getProgress().getValue().equals("NEW")).count())
                 .inProgressTask(risk.stream().filter(r -> r.getProgress().getValue().equals("IN-PROGRESS")).count())
                 .completedTask(risk.stream().filter(r -> r.getProgress().getValue().equals("COMPLETED")).count())
                 .build();
+    }
+
+    @Override
+    public List<RiskDTO> getAllRisksOfClass(String classID) {
+        return this.riskRepository.findByReportedClassId(classID).stream().map(r -> this.modelMapperUtil.getModelMapper().map(r, RiskDTO.class)).collect(Collectors.toList());
     }
 }

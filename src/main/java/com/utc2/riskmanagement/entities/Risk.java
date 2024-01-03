@@ -43,6 +43,10 @@ public class Risk {
     private MasterData typeRisk;
 
     @ManyToOne
+    @JoinColumn(name = "device")
+    private MasterData device;
+
+    @ManyToOne
     @JoinColumn(name = "assignee")
     private User assignee;
 

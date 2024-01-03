@@ -23,8 +23,8 @@ public class RiskController {
     }
 
     @GetMapping(APIConStant.Risk.TRACKING_ENDPOINT)
-    public TrackingDTO getTrackingInformation() {
-        return this.riskService.trackTask();
+    public TrackingDTO getTrackingInformation(@RequestParam(value = "classID", required = false) String classID) {
+        return this.riskService.trackTask(classID);
     }
 
     @GetMapping(APIConStant.Risk.ENDPOINT)
@@ -35,8 +35,13 @@ public class RiskController {
         return this.riskService.getAllRisks().stream().filter(r -> r.getProgress().getValue().equals(status)).collect(Collectors.toList());
     }
 
+    @GetMapping(APIConStant.Risk.GET_RISKS_OF_CLASS_ENDPOINT)
+    public List<RiskDTO> getAllRisksOfClass(@PathVariable(value = "classID") String classID) {
+        return this.riskService.getAllRisksOfClass(classID).stream().sorted((r1,r2) -> r2.getCreatedDate().compareTo(r1.getCreatedDate())).filter(r -> r.getProgress().getValue().equals("NEW") || r.getProgress().getValue().equals("IN-PROGRESS")).collect(Collectors.toList());
+    }
+
     @PostMapping(APIConStant.Risk.ENDPOINT)
-    public RiskDTO create(@ModelAttribute RiskDTO riskDTO) {
+    public RiskDTO create(@ModelAttribute RiskDTO riskDTO) throws Exception {
         return this.riskService.create(riskDTO);
     }
 

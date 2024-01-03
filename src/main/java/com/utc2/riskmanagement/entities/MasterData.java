@@ -31,6 +31,9 @@ public class MasterData {
     @OneToMany(mappedBy = "reportedClass")
     private List<Risk> risksOfClass = new ArrayList<>();
 
+    @OneToMany(mappedBy = "device")
+    private List<Risk> risksOfDevice = new ArrayList<>();
+
     @OneToMany(mappedBy = "typeRisk")
     private List<Risk> risksOfType = new ArrayList<>();
 

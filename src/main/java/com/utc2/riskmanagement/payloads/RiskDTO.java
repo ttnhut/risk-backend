@@ -23,6 +23,7 @@ public class RiskDTO implements Serializable {
     private MasterDataDTO level;
     private MasterDataDTO progress;
     private MasterDataDTO reportedClass;
+    private MasterDataDTO device;
     private MasterDataDTO riskType;
     private UserDTO assignee;
     private UserDTO reporter;

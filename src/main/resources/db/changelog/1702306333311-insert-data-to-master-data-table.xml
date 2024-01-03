@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
+    <changeSet id="1702306333311" author="Tran Tan Nhut">
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="6D3" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="PROGRESS_TYPE" />
+            <column name="value" value="NEW" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="PROGRESS_TYPE" />
+            <column name="value" value="IN-PROGRESS" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="PROGRESS_TYPE" />
+            <column name="value" value="COMPLETED" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="LEVEL_TYPE" />
+            <column name="value" value="NORMAL" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="LEVEL_TYPE" />
+            <column name="value" value="DANGEROUS" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="LEVEL_TYPE" />
+            <column name="value" value="MEDIUM" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="USER_TYPE" />
+            <column name="value" value="NORMAL" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="USER_TYPE" />
+            <column name="value" value="CNTT" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="USER_TYPE" />
+            <column name="value" value="CSVC" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Máy In" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Ti vi" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Máy tính" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Quạt" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Bàn ghế" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

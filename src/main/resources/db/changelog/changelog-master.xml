@@ -7,5 +7,5 @@
 
     <!-- Include other changelog files here -->
     <include file="1702306333317-insert-data-to-role-table.xml" relativeToChangelogFile="true"/>
-
+    <include file="1702306333311-insert-data-to-master-data-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
