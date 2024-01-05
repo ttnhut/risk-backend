@@ -44,7 +44,7 @@
             <column name="value" value="NORMAL" />
         </insert>
         <insert tableName="master_data">
-            <column name="id" valueComputed="UUID()" />
+            <column name="id" value="805aeed0-aad5-11ee-bc90-9c6b002bce85" />
             <column name="type" value="USER_TYPE" />
             <column name="value" value="CNTT" />
         </insert>
@@ -77,6 +77,30 @@
             <column name="id" valueComputed="UUID()" />
             <column name="type" value="DEVICE_TYPE" />
             <column name="value" value="Bàn ghế" />
+        </insert>
+    </changeSet>
+    <changeSet id="1702306333317" author="Tran Tan Nhut">
+        <insert tableName="role">
+            <column name="id" valueComputed="UUID()" />
+            <column name="name" value="ROLE_USER" />
+        </insert>
+        <insert tableName="role">
+            <column name="id" valueComputed="UUID()" />
+            <column name="name" value="ROLE_ADMIN" />
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="8047c89f-aad5-11ee-bc90-9c6b002bce85" />
+            <column name="name" value="ROLE_SYSTEM_ADMIN" />
+        </insert>
+        <insert tableName="user">
+            <column name="email" value="admin@utc2.edu.vn" />
+            <column name="password"  value="$2a$10$nfB5XzIIrJt4VOV8t66zPOLw72sQqSCeEAbIfazVEDGG8.lGk3BPm"/>
+            <column name="image" value="https://res.cloudinary.com/djznt6vp1/image/upload/v1704354975/zfcyf18efmhdcbh9uquz.png" />
+            <column name="name" value="System Admin"/>
+            <column name="type" value="805aeed0-aad5-11ee-bc90-9c6b002bce85" />
+            <column name="is_enabled" valueBoolean="true" />
+            <column name="role" value="8047c89f-aad5-11ee-bc90-9c6b002bce85" />
+            <column name="connected" valueBoolean="false" />
         </insert>
     </changeSet>
 </databaseChangeLog>

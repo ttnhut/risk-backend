@@ -26,7 +26,6 @@ public class UserDTO implements Serializable {
     private RoleDTO role;
     private Boolean connected = false;
 
-
     @JsonIgnore
     public String getPassword() {
         return password;

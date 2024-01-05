@@ -4,6 +4,8 @@ public class APIConStant {
     public static class MasterData {
         public static final String ENDPOINT = "/api/v1/masterdatas/";
         public static final String GET_SINGLE_OR_DELETE_OR_UPDATE_ENDPOINT = ENDPOINT + "{id}/";
+
+        public static final String RECOMMEND_CLASS_ENDPOINT = ENDPOINT + "recommend";
         public static String getDeleteSuccessStatus(String id) {
             return "Successfully delete master data with id: " + id;
         }

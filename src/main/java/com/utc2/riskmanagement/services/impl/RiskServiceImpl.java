@@ -4,6 +4,7 @@ import com.utc2.riskmanagement.entities.MasterData;
 import com.utc2.riskmanagement.entities.Risk;
 import com.utc2.riskmanagement.entities.User;
 import com.utc2.riskmanagement.exception.ResourceNotFoundException;
+import com.utc2.riskmanagement.payloads.MasterDataDTO;
 import com.utc2.riskmanagement.payloads.RiskDTO;
 import com.utc2.riskmanagement.payloads.TrackingDTO;
 import com.utc2.riskmanagement.repositories.MasterDataRepository;
@@ -60,10 +61,17 @@ public class RiskServiceImpl implements RiskService {
         if (user.getRole().getName().equals("ROLE_USER")) {
             risks = user.getReportedRisks();
         }
-        else {
+        else if (user.getRole().getName().equals("ROLE_ADMIN")){
             risks = user.getAssignedRisks();
         }
-        return risks.stream().map(r -> this.modelMapperUtil.getModelMapper().map(r, RiskDTO.class)).sorted((r2,r1) -> r1.getCreatedDate().compareTo(r2.getCreatedDate())).collect(Collectors.toList());
+        else {
+            risks = this.riskRepository.findAll();
+        }
+        return risks.stream().map(r -> {
+            RiskDTO riskDTO = this.modelMapperUtil.getModelMapper().map(r, RiskDTO.class);
+            riskDTO.setMessages(this.masterDataRepository.findByType(riskDTO.getId()).stream().map(m -> this.modelMapperUtil.getModelMapper().map(m, MasterDataDTO.class)).collect(Collectors.toList()));
+            return riskDTO;
+        }).sorted((r2,r1) -> r1.getCreatedDate().compareTo(r2.getCreatedDate())).collect(Collectors.toList());
     }
 
     @Override
@@ -116,7 +124,17 @@ public class RiskServiceImpl implements RiskService {
         }
 
         if (!StringUtils.isEmpty(riskDTO.getLevel().getId())) {
+            if (risk.getProgress().getValue().equals("COMPLETED")) {
+                throw new Exception("Cập nhật trạng thái không hợp lệ !");
+            }
             risk.setLevel(this.modelMapperUtil.getModelMapper().map(riskDTO.getLevel(), MasterData.class));
+            if (StringUtils.isNoneBlank(riskDTO.getMessage())) {
+                MasterData masterData = new MasterData();
+                masterData.setValue(riskDTO.getMessage());
+                masterData.setType(id);
+                this.masterDataRepository.save(masterData);
+            }
+            this.emailService.sendProgressRiskEmail(risk.getReporter().getEmail(), "Thay đổi cấp độ vấn đề: " + risk.getName(), risk.getProgress().getValue());
         }
 
         if (!StringUtils.isEmpty(riskDTO.getProgress().getId())) {
@@ -127,10 +145,22 @@ public class RiskServiceImpl implements RiskService {
             else if (progress.getValue().equals("COMPLETED") && risk.getProgress().getValue().equals("IN-PROGRESS")) {
                 risk.setProgress(progress);
                 risk.setCompletedDate(new Date());
+                if (StringUtils.isNoneBlank(riskDTO.getMessage())) {
+                    MasterData masterData = new MasterData();
+                    masterData.setValue(riskDTO.getMessage());
+                    masterData.setType(id);
+                    this.masterDataRepository.save(masterData);
+                }
                 this.emailService.sendProgressRiskEmail(risk.getReporter().getEmail(), "Cập nhật trạng thái của vấn đề: " + risk.getName(), risk.getProgress().getValue());
             }
             else if (progress.getValue().equals("IN-PROGRESS") && risk.getProgress().getValue().equals("NEW")) {
                 risk.setProgress(progress);
+                if (StringUtils.isNoneBlank(riskDTO.getMessage())) {
+                    MasterData masterData = new MasterData();
+                    masterData.setValue(riskDTO.getMessage());
+                    masterData.setType(id);
+                    this.masterDataRepository.save(masterData);
+                }
                 this.emailService.sendProgressRiskEmail(risk.getReporter().getEmail(), "Cập nhật trạng thái của vấn đề: " + risk.getName(), risk.getProgress().getValue());
             }
             else {
@@ -170,6 +200,44 @@ public class RiskServiceImpl implements RiskService {
 
     @Override
     public List<RiskDTO> getAllRisksOfClass(String classID) {
-        return this.riskRepository.findByReportedClassId(classID).stream().map(r -> this.modelMapperUtil.getModelMapper().map(r, RiskDTO.class)).collect(Collectors.toList());
+        return this.riskRepository.findByReportedClassId(classID).stream().map(r -> {
+            RiskDTO riskDTO = this.modelMapperUtil.getModelMapper().map(r, RiskDTO.class);
+            riskDTO.setMessages(this.masterDataRepository.findByType(riskDTO.getId()).stream().map(m -> this.modelMapperUtil.getModelMapper().map(m, MasterDataDTO.class)).collect(Collectors.toList()));
+            return riskDTO;
+        }).sorted((r2,r1) -> r1.getCreatedDate().compareTo(r2.getCreatedDate())).collect(Collectors.toList());
+    }
+
+    public static String recommendClasses(Map<String, Integer> classErrors) {
+        if (classErrors.isEmpty()) {
+            // Không có dữ liệu để đề xuất
+            return "Không có lớp học để đề xuất";
+        }
+
+        // Sử dụng lọc cộng tác để tìm lớp học có số lần lỗi thấp nhất
+        String bestClass = null;
+        int minErrors = Integer.MAX_VALUE;
+
+        for (Map.Entry<String, Integer> entry : classErrors.entrySet()) {
+            String className = entry.getKey();
+            int errors = entry.getValue();
+
+            if (errors < minErrors) {
+                minErrors = errors;
+                bestClass = className;
+            }
+        }
+
+        return "Đề xuất lớp học: " + bestClass;
+    }
+
+    @Override
+    public String recommendClass() {
+        Set<String> classes = new HashSet<>();
+        Map<String, Integer> lct = new HashMap<>();
+        List<MasterData> masterDataList = this.masterDataRepository.findByType("CLASS_TYPE");
+        masterDataList.forEach(m -> {
+            lct.put(m.getValue(), getAllRisksOfClass(m.getId()).size());
+        });
+        return recommendClasses(lct);
     }
 }

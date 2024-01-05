@@ -13,4 +13,5 @@ public interface RiskService {
     void delete(String id);
     TrackingDTO trackTask(String classID);
     List<RiskDTO> getAllRisksOfClass(String classID);
+    String recommendClass();
 }

@@ -26,6 +26,9 @@ public class Risk {
 
     private String image;
 
+    @Transient
+    private String message;
+
     @ManyToOne
     @JoinColumn(name = "level")
     private MasterData level;

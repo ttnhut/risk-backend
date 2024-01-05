@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,6 +31,8 @@ public class RiskDTO implements Serializable {
     private Date createdDate;
     private Date completedDate;
     private MultipartFile file;
+    private String message;
+    private List<MasterDataDTO> messages;
 
     @JsonIgnore
     public MultipartFile getFile() {

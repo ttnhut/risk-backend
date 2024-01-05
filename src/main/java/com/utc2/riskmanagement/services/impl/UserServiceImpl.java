@@ -1,9 +1,11 @@
 package com.utc2.riskmanagement.services.impl;
 
+import com.utc2.riskmanagement.entities.MasterData;
 import com.utc2.riskmanagement.entities.User;
 import com.utc2.riskmanagement.exception.ResourceExistException;
 import com.utc2.riskmanagement.exception.ResourceNotFoundException;
 import com.utc2.riskmanagement.payloads.UserDTO;
+import com.utc2.riskmanagement.repositories.MasterDataRepository;
 import com.utc2.riskmanagement.repositories.RoleRepository;
 import com.utc2.riskmanagement.repositories.UserRepository;
 import com.utc2.riskmanagement.services.EmailService;
@@ -45,6 +47,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private MasterDataRepository masterDataRepository;
+
     @Override
     public UserDTO getSingleUser(String email) {
         User user = this.userRepository.findById(email).orElseThrow(() -> new ResourceNotFoundException(ExceptionConstant.User.RESOURCE, ExceptionConstant.User.ID_FIELD, email));
@@ -61,12 +66,18 @@ public class UserServiceImpl implements UserService {
     public UserDTO create(UserDTO userDTO) {
         boolean userExisted = this.userRepository.findById(userDTO.getEmail()).isPresent();
         if (!userExisted) {
+            MasterData masterData = this.masterDataRepository.findById(userDTO.getType().getId()).get();
             User user = this.modelMapperUtil.getModelMapper().map(userDTO, User.class);
             user.setImage(fileService.uploadImage(user.getFile()));
             user.setEnabled(true);
             user.setCode(UUID.randomUUID().toString());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRole(this.roleRepository.findByName("ROLE_USER"));
+            if (masterData.getValue().equals("NORMAL")) {
+                user.setRole(this.roleRepository.findByName("ROLE_USER"));
+            }
+            else {
+                user.setRole(this.roleRepository.findByName("ROLE_ADMIN"));
+            }
             User savedUser = this.userRepository.save(user);
             try {
                 this.emailService.sendActivationEmail(savedUser.getEmail(), ActivationConstant.ACTIVATION_URL + savedUser.getCode(), EmailConstant.ACTIVATION_SUBJECT, ActivationConstant.ACTIVATION_DESCRIPTION, savedUser.getName());
