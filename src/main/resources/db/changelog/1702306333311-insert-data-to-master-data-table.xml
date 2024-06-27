@@ -6,7 +6,187 @@
         <insert tableName="master_data">
             <column name="id" valueComputed="UUID()" />
             <column name="type" value="CLASS_TYPE" />
-            <column name="value" value="6D3" />
+            <column name="value" value="101C1" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102C1" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103C1" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="201C2" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="202C2" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="203C2" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="301C3" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="302C3" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="303C3" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="401C4" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="402C4" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="403C4" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E1" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E1" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E1" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E2" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E2" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E2" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E3" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E3" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E3" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E4" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E4" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E4" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E5" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E5" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E5" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E6" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E6" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E6" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E7" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E7" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E7" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="101E8" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="102E8" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="103E8" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="CLASS_TYPE" />
+            <column name="value" value="E8B" />
         </insert>
         <insert tableName="master_data">
             <column name="id" valueComputed="UUID()" />
@@ -67,6 +247,21 @@
             <column name="id" valueComputed="UUID()" />
             <column name="type" value="DEVICE_TYPE" />
             <column name="value" value="Máy tính" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Cửa" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Cửa sổ" />
+        </insert>
+        <insert tableName="master_data">
+            <column name="id" valueComputed="UUID()" />
+            <column name="type" value="DEVICE_TYPE" />
+            <column name="value" value="Máy chiếu" />
         </insert>
         <insert tableName="master_data">
             <column name="id" valueComputed="UUID()" />
